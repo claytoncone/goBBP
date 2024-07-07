@@ -5,8 +5,7 @@ import (
 )
 
 type PiDigits struct {
-	exponent *[NPT]float64
-	channel  chan float64
+	channel chan float64
 }
 
 func (pi *PiDigits) genHex(start int, num int) []byte {
@@ -28,16 +27,6 @@ func (pi *PiDigits) genHex(start int, num int) []byte {
 	pid := d1 - 10
 	pid = pid - float64(int(pid)) + 1.
 	return pi.ihex(pid, num)
-}
-
-func (pi *PiDigits) genExp() {
-	var exp [NPT]float64
-	exp[0] = 0.
-	exp[1] = 1.
-	for i := 2; i < NPT; i++ {
-		exp[i] = 2. * exp[i-1]
-	}
-	pi.exponent = &exp
 }
 
 func (pi *PiDigits) series(m int, id int, kf float64) {
@@ -78,11 +67,11 @@ func (pi *PiDigits) expm(p float64, ak float64) float64 {
 
 	i := 0
 	for ; i < NPT; i++ {
-		if pi.exponent[i] > p {
+		if Exponents[i] > p {
 			break
 		}
 	}
-	pt = pi.exponent[i-1]
+	pt = Exponents[i]
 	p1 = p
 	r = 1
 	for j := 1; j < i; j++ {
