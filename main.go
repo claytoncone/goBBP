@@ -4,23 +4,13 @@ import (
 	"flag"
 	"fmt"
 	"goBBP/bbp"
-	"strconv"
 )
 
-var startArg = flag.String("start", "0", "The starting digit")
-var numArg = flag.String("num", "12", "The number of digits")
+var start = flag.Int("start", 0, "The starting digit")
+var num = flag.Int("num", 12, "The number of digits")
 
 func main() {
-	start, err := strconv.Atoi(*startArg)
-	if err != nil {
-		fmt.Println("Error converting startArg", err)
-		return
-	}
-	num, err := strconv.Atoi(*numArg)
-	if err != nil {
-		fmt.Println("Error converting startArg", err)
-		return
-	}
+	flag.Parse()
 	pi := bbp.New()
-	fmt.Println(pi.GetDecimalValues(start, num))
+	fmt.Println(pi.GetDecimalValues(*start, *num))
 }
