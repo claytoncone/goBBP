@@ -8,7 +8,7 @@ import (
 )
 
 var startArg = flag.String("start", "0", "The starting digit")
-var numArg = flag.String("num", "9", "The number of digits")
+var numArg = flag.String("num", "12", "The number of digits")
 
 func main() {
 	start, err := strconv.Atoi(*startArg)
@@ -22,5 +22,5 @@ func main() {
 		return
 	}
 	pi := bbp.New()
-	fmt.Println(pi.Get(start, num))
+	fmt.Println(pi.GetDecimalValues(start, num))
 }
