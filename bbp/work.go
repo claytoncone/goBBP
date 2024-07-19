@@ -9,51 +9,42 @@ type PiDigits struct {
 }
 
 func (pi *PiDigits) genHex(start int, num int) []byte {
-	var d1 float64
-	var d2 float64
+	var pid float64
 	go pi.series(1, start, 4.)
-	go pi.series(4, start, 2.)
-	go pi.series(5, start, 1.)
-	go pi.series(6, start, 1.)
+	go pi.series(4, start, -2.)
+	go pi.series(5, start, -1.)
+	go pi.series(6, start, -1.)
 	for i := 0; i < 4; i++ {
-		d2 = <-pi.channel
-		if d2 > 8. {
-
-			d1 += d2
-		} else {
-			d1 -= d2
-		}
+		pid += <-pi.channel
 	}
-	pid := d1 - 10
-	pid = pid - float64(int(pid)) + 1.
+	pid -= math.Floor(pid)
 	return pi.ihex(pid, num)
 }
 
 func (pi *PiDigits) series(m int, id int, kf float64) {
-	var ak, p, s, t float64
+	var s, t float64
+
 	for k := 0; k < id; k++ {
-		ak = 8*float64(k) + float64(m)
-		p = float64(id) - float64(k)
+		ak := float64(8*k + m)
+		p := float64(id - k)
 		t = pi.expm(p, ak)
+
 		s += t / ak
-		s = s - float64(int(s))
+		s -= float64(int(s))
 	}
+
 	for k := id; k <= id+100; k++ {
-		ak = 8*float64(k) + float64(m)
-		t = math.Pow(16., float64(id-k)) / ak
+		ak := float64(8*k + m)
+		t := math.Pow(16., float64(id-k)) / ak
 
 		if t < EPS {
 			break
 		}
+
 		s += t
-		s = s - float64(int(s))
+		s -= math.Floor(s)
 	}
-
-	s = s * kf
-
-	if kf == 4. {
-		s += 10.
-	}
+	s *= kf
 
 	pi.channel <- s
 }
@@ -71,21 +62,21 @@ func (pi *PiDigits) expm(p float64, ak float64) float64 {
 			break
 		}
 	}
-	pt = Exponents[i]
+	pt = Exponents[i-1]
 	p1 = p
-	r = 1
-	for j := 1; j < i; j++ {
+	r = 1.
+	for j := 1; j <= i; j++ {
 		if p1 >= pt {
-			r = 16. * r
-			r = r - float64(float64(int(r/ak))*ak)
-			p1 = p1 - pt
+			r *= 16.
+			r -= float64(float64(int(r/ak)) * ak)
+			p1 -= pt
 		}
 
-		pt = 0.5 * pt
+		pt /= 2.
 
 		if pt >= 1. {
-			r = r * r
-			r = r - float64(float64(int(r/ak))*ak)
+			r *= r
+			r -= float64(float64(int(r/ak)) * ak)
 		}
 	}
 
@@ -95,7 +86,7 @@ func (pi *PiDigits) expm(p float64, ak float64) float64 {
 func (pi *PiDigits) ihex(x float64, num int) []byte {
 	var out []byte
 	var y float64
-	y = math.Abs(x)
+	y = math.Abs(x + 1.)
 
 	for i := 0; i < num; i++ {
 		y = (y - math.Floor(y)) * 16
