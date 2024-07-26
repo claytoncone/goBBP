@@ -14,7 +14,7 @@ func New() *PiDigits {
 
 func (pi *PiDigits) GetHexDigits(start int, num int) []byte {
 	var out []byte
-	if start <= CLIMIT && start+num < CLIMIT && start >= 0 && num > 0 {
+	if start+num < CLIMIT && start >= 0 && num > 0 {
 		numCpu := runtime.NumCPU()
 		runtime.GOMAXPROCS(numCpu)
 

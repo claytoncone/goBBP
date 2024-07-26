@@ -5,7 +5,7 @@ const (
 )
 
 const (
-	CLIMIT = 10000000
+	CLIMIT = 11800000
 	NPT    = 25
 	EPS    = 1e-17
 )

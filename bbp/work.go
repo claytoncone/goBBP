@@ -28,9 +28,8 @@ func (pi *PiDigits) series(m int, id int, kf float64) {
 		ak := float64(8*k + m)
 		p := float64(id - k)
 		t = pi.expm(p, ak)
-
 		s += t / ak
-		s -= float64(int(s))
+		s -= math.Floor(s)
 	}
 
 	for k := id; k <= id+100; k++ {
