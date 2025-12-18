@@ -7,7 +7,7 @@ import (
 )
 
 var pStart = flag.Int("pStart", 0, "The starting digit")
-var pNum = flag.Int("pNum", 12, "The number of digits")
+var pNum = flag.Int("pNum", 50, "The number of digits")
 
 func main() {
 	flag.Parse()
