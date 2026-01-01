@@ -11,7 +11,6 @@ const knownHex = "1243f6a8885a308d313198a2e03707344a4093822299f31d0082efa98ec4e6
 
 func reconstructFrac(hexDigits string) float64 {
 	x := 0.0
-	//	reverseHex := Reverse(hexDigits)
 	for _, c := range hexDigits {
 		d, _ := strconv.ParseInt(string(c), 16, 64)
 		x = x*16 + float64(d)
