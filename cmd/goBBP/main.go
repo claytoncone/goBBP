@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"goBBP/bbp"
+	"goBBP/internal"
 )
 
 var pStart = flag.Int("pStart", 1000000, "The starting digit")
