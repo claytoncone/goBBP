@@ -1,7 +1,7 @@
 package bbp
 
 const (
-	STEP = 9
+	STEP = 7
 )
 
 const (

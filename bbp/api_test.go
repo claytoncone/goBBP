@@ -93,7 +93,7 @@ func TestGet4Value(t *testing.T) {
 		value = value + v/ex
 		ex = ex * 16
 	}
-	var iValue int16 = int16(value * 10000)
+	var iValue = int16(value * 10000)
 	var expected int16 = 1415
 	if iValue == expected {
 		t.Logf("TestGet4Value passed - %d", iValue)
@@ -127,7 +127,7 @@ func TestValues(t *testing.T) {
 					value += v / ex
 					ex = ex * 16
 				}
-				var ivalue int64 = int64(value * math.Pow(10, float64(tt.num)))
+				var ivalue = int64(value * math.Pow(10, float64(tt.num)))
 				if ivalue != tt.result {
 					t.Errorf("Expected %d, got %d", tt.result, ivalue)
 				} else {

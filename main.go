@@ -6,8 +6,8 @@ import (
 	"goBBP/bbp"
 )
 
-var pStart = flag.Int("pStart", 0, "The starting digit")
-var pNum = flag.Int("pNum", 12, "The number of digits")
+var pStart = flag.Int("pStart", 1000000, "The starting digit")
+var pNum = flag.Int("pNum", 30, "The number of digits")
 
 func main() {
 	flag.Parse()
