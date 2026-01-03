@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"goBBP/internal"
+	"goBBP/internal/bbp"
 )
 
-var pStart = flag.Int("pStart", 1000000, "The starting digit")
-var pNum = flag.Int("pNum", 30, "The number of digits")
+var pStart = flag.Int("pStart", 16, "The starting digit")
+var pNum = flag.Int("pNum", 50, "The number of digits")
 
 func main() {
 	flag.Parse()

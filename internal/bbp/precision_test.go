@@ -79,4 +79,10 @@ func TestIHexChainedStepAccuracy(t *testing.T) {
 			}
 		})
 	}
+	/*
+		func TestGetHexValues(t *testing.T) {
+			t.Run()
+		}
+	*/
+
 }

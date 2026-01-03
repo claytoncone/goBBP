@@ -31,6 +31,15 @@ func (pi *PiDigits) GetHexDigits(start int, num int) []byte {
 	return out
 }
 
+func (pi *PiDigits) GetHexValues(start, end int) []byte {
+	hex := pi.GetHexDigits(start, end)
+	chx := []byte{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'}
+	for i, v := range hex {
+		hex[i] = chx[v]
+	}
+	return hex
+}
+
 func (pi *PiDigits) GetDecimalValues(start int, num int) []byte {
 	hex := pi.GetHexDigits(start, num)
 	out := make([]byte, len(hex))
@@ -40,7 +49,10 @@ func (pi *PiDigits) GetDecimalValues(start int, num int) []byte {
 	for i, h := range hex {
 		divisor *= 1.6
 		fraction += float64(int8(h)) / divisor
-		out[i] = byte(fraction)
+
+		digit := int(math.Floor(fraction))
+		out[i] = byte(digit % 10) // Handle overflow with modulo
+
 		fraction = (fraction - math.Floor(fraction)) * 10.0
 	}
 
